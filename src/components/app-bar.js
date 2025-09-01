@@ -6,17 +6,22 @@ class AppBar extends HTMLElement {
   render() {
     this.innerHTML = `
       <header class="app-bar">
+        <div class="app-bar__left">
           <img src="memento_logo.png" alt="Memento Logo" class="logo" />
-        <input 
-          type="search" 
-          id="search-input" 
-          placeholder="Cari catatan..." 
-          aria-label="Cari catatan" 
-        />
+        </div>
+        <div class="app-bar__right">
+          <input 
+            type="search" 
+            id="search-input" 
+            placeholder="Cari catatan..." 
+            aria-label="Cari catatan"
+          />
+        </div>
       </header>
     `;
 
-    this.querySelector("#search-input").addEventListener("input", (e) => {
+    const searchInput = this.querySelector("#search-input");
+    searchInput.addEventListener("input", (e) => {
       this.dispatchEvent(
         new CustomEvent("search-notes", {
           detail: { keyword: e.target.value.toLowerCase() },

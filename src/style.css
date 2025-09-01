@@ -40,12 +40,30 @@ body {
   padding: 1rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
+  justify-content: space-between; /* spread left, center, right */
   box-shadow: var(--shadow-medium);
   position: sticky;
   top: 0;
   z-index: 100;
+}
+
+.app-bar__left,
+.app-bar__right {
+  display: flex;
+  align-items: center;
+}
+
+.app-bar__left {
+  flex: 1; /* push logo to center */
+  justify-content: center;
+}
+
+.app-bar__right input[type="search"] {
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  min-width: 200px;
 }
 
 .app-bar .logo {
@@ -53,16 +71,6 @@ body {
   transition: transform var(--transition-fast);
 }
 
-.app-bar .logo:hover {
-  transform: scale(1.05);
-}
-
-.app-bar h1 {
-  margin: 0;
-  font-family: "Quicksand", sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.5rem, 4vw, 2rem);
-}
 
 /* ================ CONTAINER ================ */
 .container {
