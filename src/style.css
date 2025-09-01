@@ -71,6 +71,15 @@ body {
   margin: 0 auto;
 }
 
+.loading {
+  text-align: center;
+  padding: 1rem;
+  font-weight: bold;
+}
+.hidden {
+  display: none;
+}
+
 /* ================ NOTE FORM ================ */
 #add-note-form {
   display: flex;
@@ -104,8 +113,7 @@ body {
   border-radius: 8px;
   font-family: inherit;
   font-size: 0.95rem;
-  transition:
-    border-color var(--transition-fast),
+  transition: border-color var(--transition-fast),
     box-shadow var(--transition-fast);
   background: var(--color-white);
 }
@@ -198,6 +206,7 @@ body {
   border: 2px solid transparent;
   cursor: pointer;
   position: relative;
+  margin-bottom: 1rem;
   overflow: hidden;
 }
 
@@ -231,9 +240,7 @@ body {
 .note-item:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow:
-    var(--shadow-medium),
-    0 0 0 3px rgba(162, 131, 210, 0.1);
+  box-shadow: var(--shadow-medium), 0 0 0 3px rgba(162, 131, 210, 0.1);
 }
 
 .note-item.highlight {
@@ -254,6 +261,16 @@ body {
     var(--color-accent) 0%,
     var(--color-primary) 100%
   );
+}
+
+.notes-title {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: var(--color-text);
+  justify-items: center;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 /* Error state for invalid notes */
