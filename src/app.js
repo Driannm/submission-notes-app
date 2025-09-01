@@ -4,6 +4,8 @@ import "./components/note-item.js";
 import "./components/note-form.js";
 import "./components/footer-bar.js";
 
+let keyword = "";
+
 const activeList = document.querySelector("#active-notes");
 const archivedList = document.querySelector("#archived-notes");
 
@@ -12,12 +14,21 @@ async function renderNotes() {
   archivedList.innerHTML = "";
 
   try {
-    const notes = await NotesApi.getAllNotes();
+    const allNotes = await NotesApi.getAllNotes();
 
-    notes.forEach((note, index) => {
+    const filtered = keyword
+      ? allNotes.filter(
+          (note) =>
+            note.title.toLowerCase().includes(keyword) ||
+            note.body.toLowerCase().includes(keyword)
+        )
+      : allNotes;
+
+    filtered.forEach((note, index) => {
       const noteItem = document.createElement("note-item");
       noteItem.note = note;
 
+      // highlight note pertama yg aktif
       if (index === 0 && !note.archived) {
         noteItem.setAttribute("highlight", "");
       }
@@ -51,6 +62,11 @@ document.addEventListener("submit", async (e) => {
       e.target.reset();
     }
   }
+});
+
+document.addEventListener("search-notes", (e) => {
+  keyword = e.detail.keyword;
+  renderNotes();
 });
 
 document.addEventListener("note-deleted", renderNotes);
