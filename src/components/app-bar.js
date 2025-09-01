@@ -2,7 +2,7 @@ class AppBar extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
       <header class="app-bar">
-        <img src="public/memento-logo.png" alt="Memento Logo" class="logo">
+        <img src="memento_logo.png" alt="Memento Logo" class="logo" />
       </header>
     `;
   }
