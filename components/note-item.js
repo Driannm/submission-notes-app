@@ -27,7 +27,7 @@ class NoteItem extends HTMLElement {
    * Escape HTML to prevent XSS attacks
    */
   _escapeHtml(text) {
-    const div = document.createElement('div');
+    const div = document.createElement("div");
     div.textContent = text;
     return div.innerHTML;
   }
@@ -39,20 +39,20 @@ class NoteItem extends HTMLElement {
     try {
       const date = new Date(dateString);
       if (isNaN(date.getTime())) {
-        return 'Tanggal tidak valid';
+        return "Tanggal tidak valid";
       }
-      
+
       return date.toLocaleDateString("id-ID", {
         weekday: "long",
         year: "numeric",
-        month: "long", 
+        month: "long",
         day: "numeric",
         hour: "2-digit",
-        minute: "2-digit"
+        minute: "2-digit",
       });
     } catch (error) {
-      console.error('Error formatting date:', error);
-      return 'Tanggal tidak valid';
+      console.error("Error formatting date:", error);
+      return "Tanggal tidak valid";
     }
   }
 
@@ -60,26 +60,28 @@ class NoteItem extends HTMLElement {
    * Truncate text if it's too long
    */
   _truncateText(text, maxLength = 200) {
-    if (!text) return '';
+    if (!text) return "";
     if (text.length <= maxLength) return text;
-    return text.substring(0, maxLength).trim() + '...';
+    return text.substring(0, maxLength).trim() + "...";
   }
 
   /**
    * Validate note object
    */
   _isValidNote(note) {
-    return note && 
-           typeof note === 'object' && 
-           typeof note.title === 'string' && 
-           typeof note.body === 'string' && 
-           note.createdAt;
+    return (
+      note &&
+      typeof note === "object" &&
+      typeof note.title === "string" &&
+      typeof note.body === "string" &&
+      note.createdAt
+    );
   }
 
   render() {
     // Clear content first
-    this.innerHTML = '';
-    
+    this.innerHTML = "";
+
     if (!this._isValidNote(this._note)) {
       this.innerHTML = `
         <div class="note-item error-state">
@@ -117,7 +119,7 @@ class NoteItem extends HTMLElement {
     `;
 
     this.innerHTML = template;
-    
+
     // Add event listeners after render
     this._addEventListeners();
   }
@@ -126,19 +128,19 @@ class NoteItem extends HTMLElement {
    * Add event listeners for interactions
    */
   _addEventListeners() {
-    const article = this.querySelector('.note-item');
+    const article = this.querySelector(".note-item");
     if (!article) return;
 
     // Keyboard accessibility
-    article.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
+    article.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
         e.preventDefault();
         this._handleClick(e);
       }
     });
 
     // Click handler
-    article.addEventListener('click', (e) => {
+    article.addEventListener("click", (e) => {
       this._handleClick(e);
     });
   }
@@ -148,13 +150,15 @@ class NoteItem extends HTMLElement {
    */
   _handleClick(event) {
     // Dispatch custom event for parent components to handle
-    this.dispatchEvent(new CustomEvent('note-selected', {
-      detail: { 
-        note: this._note,
-        element: this 
-      },
-      bubbles: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent("note-selected", {
+        detail: {
+          note: this._note,
+          element: this,
+        },
+        bubbles: true,
+      }),
+    );
   }
 
   /**
@@ -162,9 +166,9 @@ class NoteItem extends HTMLElement {
    */
   setHighlight(shouldHighlight) {
     if (shouldHighlight) {
-      this.setAttribute('highlight', '');
+      this.setAttribute("highlight", "");
     } else {
-      this.removeAttribute('highlight');
+      this.removeAttribute("highlight");
     }
   }
 
@@ -172,7 +176,7 @@ class NoteItem extends HTMLElement {
    * Public method to check if note is highlighted
    */
   isHighlighted() {
-    return this.hasAttribute('highlight');
+    return this.hasAttribute("highlight");
   }
 
   /**

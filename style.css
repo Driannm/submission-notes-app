@@ -1,21 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap");
 
 :root {
-  --color-primary: #A283D2;   /* Ungu pastel */
-  --color-accent: #AEE1D6;    /* Mint */
-  --color-bg: #FAF0E6;        /* Cream */
-  --color-text: #333333;      /* Teks utama */
-  --color-white: #FFFFFF;
-  --color-pink: #F6A5C0;      /* Accent tambahan */
-  --color-error: #FF6B6B;     /* Error color */
-  --color-success: #51CF66;   /* Success color */
-  
+  --color-primary: #a283d2; /* Ungu pastel */
+  --color-accent: #aee1d6; /* Mint */
+  --color-bg: #faf0e6; /* Cream */
+  --color-text: #333333; /* Teks utama */
+  --color-white: #ffffff;
+  --color-pink: #f6a5c0; /* Accent tambahan */
+  --color-error: #ff6b6b; /* Error color */
+  --color-success: #51cf66; /* Success color */
+
   /* Shadow variables */
   --shadow-light: 0 2px 8px rgba(162, 131, 210, 0.1);
   --shadow-medium: 0 4px 12px rgba(162, 131, 210, 0.15);
   --shadow-heavy: 0 8px 24px rgba(162, 131, 210, 0.2);
-  
+
   /* Transition variables */
   --transition-fast: 0.2s ease;
   --transition-medium: 0.3s ease;
@@ -59,7 +59,7 @@ body {
 
 .app-bar h1 {
   margin: 0;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-weight: 700;
   font-size: clamp(1.5rem, 4vw, 2rem);
 }
@@ -104,7 +104,9 @@ body {
   border-radius: 8px;
   font-family: inherit;
   font-size: 0.95rem;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
   background: var(--color-white);
 }
 
@@ -200,13 +202,17 @@ body {
 }
 
 .note-item::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-accent) 100%
+  );
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--transition-medium);
@@ -225,19 +231,29 @@ body {
 .note-item:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: var(--shadow-medium), 0 0 0 3px rgba(162, 131, 210, 0.1);
+  box-shadow:
+    var(--shadow-medium),
+    0 0 0 3px rgba(162, 131, 210, 0.1);
 }
 
 .note-item.highlight {
   border-color: var(--color-accent);
-  background: linear-gradient(135deg, #E6FAF5 0%, rgba(174, 225, 214, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    #e6faf5 0%,
+    rgba(174, 225, 214, 0.1) 100%
+  );
   transform: translateY(-2px);
   box-shadow: var(--shadow-medium);
 }
 
 .note-item.highlight::before {
   transform: scaleX(1);
-  background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--color-accent) 0%,
+    var(--color-primary) 100%
+  );
 }
 
 /* Error state for invalid notes */
@@ -317,16 +333,16 @@ body {
   .container {
     padding: 1rem;
   }
-  
+
   .notes-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
-  
+
   #add-note-form {
     padding: 1rem;
   }
-  
+
   .note-item {
     padding: 1rem;
   }
@@ -346,7 +362,7 @@ body {
   .note-item {
     border: 2px solid var(--color-text);
   }
-  
+
   .note-item.highlight {
     border: 3px solid var(--color-accent);
   }
