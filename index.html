@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
@@ -34,18 +34,18 @@
     <main class="container">
       <!-- Form Tambah Catatan -->
       <note-form></note-form>
-      <div id="loading" class="loading hidden">Loading...</div>
+      <loading-indicator id="loader" style="display:none"></loading-indicator>
 
       <!-- List Catatan -->
-      <!-- <section id="notes-list" class="notes-grid"></section> -->
-        <section>
-          <h2 class="notes-title">Catatan Aktif</h2>
-          <div id="active-notes"></div>
-        </section>
-        <section>
-          <h2 class="notes-title">Catatan Arsip</h2>
-          <div id="archived-notes"></div>
-        </section>      
+      <section>
+        <h2 class="notes-title">Catatan Aktif</h2>
+        <div id="active-notes" class="notes-grid"></div>
+      </section>
+
+      <section>
+        <h2 class="notes-title">Catatan Arsip</h2>
+        <div id="archived-notes" class="notes-grid"></div>
+      </section>
     </main>
     <footer-bar></footer-bar>
 
