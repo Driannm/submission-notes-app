@@ -8,6 +8,13 @@ class NotesApi {
     return data;
   }
 
+  static async getArchivedNotes() {
+    const response = await fetch(`${BASE_URL}/notes/archived`);
+    if (!response.ok) throw new Error("Gagal mengambil catatan arsip");
+    const { data } = await response.json();
+    return data;
+  }
+
   static async addNote(note) {
     const response = await fetch(`${BASE_URL}/notes`, {
       method: "POST",

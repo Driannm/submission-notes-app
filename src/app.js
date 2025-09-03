@@ -35,36 +35,44 @@ async function renderNotes() {
   activeList.innerHTML = "";
   archivedList.innerHTML = "";
 
-  const allNotes = await NotesApi.getAllNotes();
-  console.log("DEBUG allNotes:", allNotes);
-
   showLoading();
   try {
-    const allNotes = await NotesApi.getAllNotes();
+    const [activeNotes, archivedNotes] = await Promise.all([
+      NotesApi.getAllNotes(),
+      NotesApi.getArchivedNotes()
+    ]);
 
-    const filtered = keyword
-      ? allNotes.filter(
+    const filteredActive = keyword
+      ? activeNotes.filter(
           (note) =>
             note.title.toLowerCase().includes(keyword.toLowerCase()) ||
             note.body.toLowerCase().includes(keyword.toLowerCase())
         )
-      : allNotes;
+      : activeNotes;
 
-    filtered.forEach((note, index) => {
+    const filteredArchived = keyword
+      ? archivedNotes.filter(
+          (note) =>
+            note.title.toLowerCase().includes(keyword.toLowerCase()) ||
+            note.body.toLowerCase().includes(keyword.toLowerCase())
+        )
+      : archivedNotes;
+
+    // render aktif
+    filteredActive.forEach((note, index) => {
       const noteItem = document.createElement("note-item");
       noteItem.note = note;
-
-      // highlight note pertama yg aktif
-      if (index === 0 && !note.archived) {
-        noteItem.setAttribute("highlight", "");
-      }
-
-      if (note.archived) {
-        archivedList.appendChild(noteItem);
-      } else {
-        activeList.appendChild(noteItem);
-      }
+      if (index === 0) noteItem.setAttribute("highlight", "");
+      activeList.appendChild(noteItem);
     });
+
+    // render arsip
+    filteredArchived.forEach((note) => {
+      const noteItem = document.createElement("note-item");
+      noteItem.note = note;
+      archivedList.appendChild(noteItem);
+    });
+
   } catch (err) {
     console.error("Gagal render catatan:", err);
     alert("Gagal mengambil catatan dari server!");
