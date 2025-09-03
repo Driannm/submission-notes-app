@@ -97,7 +97,7 @@ class NoteItem extends HTMLElement {
             await NotesApi.archiveNote(noteId);
           }
           this.dispatchEvent(
-            new CustomEvent("note-updated", { bubbles: true }),
+            new CustomEvent("note-updated", { bubbles: true })
           );
         } catch (err) {
           alert("Gagal update arsip: " + err.message);
@@ -110,7 +110,6 @@ class NoteItem extends HTMLElement {
         e.stopPropagation();
         if (confirm("Yakin ingin menghapus catatan ini?")) {
           try {
-            // 🔥 animasi keluar
             anime({
               targets: this,
               opacity: [1, 0],
@@ -120,7 +119,7 @@ class NoteItem extends HTMLElement {
               complete: async () => {
                 await NotesApi.deleteNote(noteId);
                 this.dispatchEvent(
-                  new CustomEvent("note-deleted", { bubbles: true }),
+                  new CustomEvent("note-deleted", { bubbles: true })
                 );
               },
             });

@@ -13,21 +13,20 @@ const loader = document.querySelector("#loader");
 
 function showLoading() {
   if (loader) {
-    loader.style.display = "flex"; // biar tetap center
+    loader.style.display = "flex"; 
     loader.classList.remove("hidden");
-    clearTimeout(loader._timeout); // reset timeout sebelumnya
+    clearTimeout(loader._timeout); 
   }
 }
 
 function hideLoading() {
   if (loader) {
-    // kasih waktu minimal + animasi fade out
     loader._timeout = setTimeout(() => {
       loader.classList.add("hidden");
       setTimeout(() => {
         loader.style.display = "none";
-      }, 500); // sinkron sama durasi transition CSS
-    }, 600); // loader minimal tampil 600ms
+      }, 500); 
+    }, 600); 
   }
 }
 
@@ -46,7 +45,7 @@ async function renderNotes() {
       ? activeNotes.filter(
           (note) =>
             note.title.toLowerCase().includes(keyword.toLowerCase()) ||
-            note.body.toLowerCase().includes(keyword.toLowerCase()),
+            note.body.toLowerCase().includes(keyword.toLowerCase())
         )
       : activeNotes;
 
@@ -54,11 +53,10 @@ async function renderNotes() {
       ? archivedNotes.filter(
           (note) =>
             note.title.toLowerCase().includes(keyword.toLowerCase()) ||
-            note.body.toLowerCase().includes(keyword.toLowerCase()),
+            note.body.toLowerCase().includes(keyword.toLowerCase())
         )
       : archivedNotes;
 
-    // render aktif
     filteredActive.forEach((note, index) => {
       const noteItem = document.createElement("note-item");
       noteItem.note = note;
@@ -75,7 +73,6 @@ async function renderNotes() {
       });
     });
 
-    // render arsip
     filteredArchived.forEach((note, index) => {
       const noteItem = document.createElement("note-item");
       noteItem.note = note;
@@ -90,7 +87,6 @@ async function renderNotes() {
         delay: index * 100,
       });
     });
-    
   } catch (err) {
     console.error("Gagal render catatan:", err);
     alert("Gagal mengambil catatan dari server!");

@@ -2,7 +2,6 @@ class NoteForm extends HTMLElement {
   connectedCallback() {
     this.render();
 
-    // simpan reference biar nggak query global
     this.form = this.querySelector("#add-note-form");
     this.titleInput = this.querySelector("#note-title");
     this.bodyInput = this.querySelector("#note-body");
@@ -11,7 +10,6 @@ class NoteForm extends HTMLElement {
     this.titleCount = this.querySelector("#title-count");
     this.bodyCount = this.querySelector("#body-count");
 
-    // event listener
     this.titleInput.addEventListener("input", () => this.validateTitle());
     this.bodyInput.addEventListener("input", () => this.validateBody());
   }
