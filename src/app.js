@@ -39,14 +39,14 @@ async function renderNotes() {
   try {
     const [activeNotes, archivedNotes] = await Promise.all([
       NotesApi.getAllNotes(),
-      NotesApi.getArchivedNotes()
+      NotesApi.getArchivedNotes(),
     ]);
 
     const filteredActive = keyword
       ? activeNotes.filter(
           (note) =>
             note.title.toLowerCase().includes(keyword.toLowerCase()) ||
-            note.body.toLowerCase().includes(keyword.toLowerCase())
+            note.body.toLowerCase().includes(keyword.toLowerCase()),
         )
       : activeNotes;
 
@@ -54,7 +54,7 @@ async function renderNotes() {
       ? archivedNotes.filter(
           (note) =>
             note.title.toLowerCase().includes(keyword.toLowerCase()) ||
-            note.body.toLowerCase().includes(keyword.toLowerCase())
+            note.body.toLowerCase().includes(keyword.toLowerCase()),
         )
       : archivedNotes;
 
@@ -64,15 +64,33 @@ async function renderNotes() {
       noteItem.note = note;
       if (index === 0) noteItem.setAttribute("highlight", "");
       activeList.appendChild(noteItem);
+
+      anime({
+        targets: noteItem,
+        opacity: [0, 1],
+        translateY: [20, 0],
+        easing: "easeOutExpo",
+        duration: 600,
+        delay: index * 100,
+      });
     });
 
     // render arsip
-    filteredArchived.forEach((note) => {
+    filteredArchived.forEach((note, index) => {
       const noteItem = document.createElement("note-item");
       noteItem.note = note;
       archivedList.appendChild(noteItem);
-    });
 
+      anime({
+        targets: noteItem,
+        opacity: [0, 1],
+        translateY: [20, 0],
+        easing: "easeOutExpo",
+        duration: 600,
+        delay: index * 100,
+      });
+    });
+    
   } catch (err) {
     console.error("Gagal render catatan:", err);
     alert("Gagal mengambil catatan dari server!");
