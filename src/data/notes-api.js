@@ -1,49 +1,51 @@
 const BASE_URL = "https://notes-api.dicoding.dev/v2";
-const STORAGE_KEY = "notes_data";
 
 class NotesApi {
-  static _loadNotes() {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  }
-
-  static _saveNotes(notes) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(notes));
-  }
-
   static async getAllNotes() {
-    return this._loadNotes();
+    const response = await fetch(`${BASE_URL}/notes`);
+    if (!response.ok) throw new Error("Gagal mengambil catatan");
+    const { data } = await response.json();
+    return data;
   }
 
   static async addNote(note) {
-    const notes = this._loadNotes();
-    notes.push(note);
-    this._saveNotes(notes);
-    return note;
+    const response = await fetch(`${BASE_URL}/notes`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        title: note.title,
+        body: note.body,
+      }),
+    });
+    if (!response.ok) throw new Error("Gagal menambah catatan");
+    const { data } = await response.json();
+    return data;
   }
 
   static async deleteNote(id) {
-    let notes = this._loadNotes();
-    notes = notes.filter((n) => n.id !== id);
-    this._saveNotes(notes);
+    const response = await fetch(`${BASE_URL}/notes/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) throw new Error("Gagal menghapus catatan");
+    return true;
   }
 
   static async archiveNote(id) {
-    const notes = this._loadNotes();
-    const note = notes.find((n) => n.id === id);
-    if (!note) throw new Error("Note tidak ditemukan");
-    note.archived = true;
-    this._saveNotes(notes);
-    return note;
+    const response = await fetch(`${BASE_URL}/notes/${id}/archive`, {
+      method: "POST",
+    });
+    if (!response.ok) throw new Error("Gagal mengarsipkan catatan");
+    const { data } = await response.json();
+    return data;
   }
 
   static async unarchiveNote(id) {
-    const notes = this._loadNotes();
-    const note = notes.find((n) => n.id === id);
-    if (!note) throw new Error("Note tidak ditemukan");
-    note.archived = false;
-    this._saveNotes(notes);
-    return note;
+    const response = await fetch(`${BASE_URL}/notes/${id}/unarchive`, {
+      method: "POST",
+    });
+    if (!response.ok) throw new Error("Gagal mengembalikan catatan");
+    const { data } = await response.json();
+    return data;
   }
 }
 
